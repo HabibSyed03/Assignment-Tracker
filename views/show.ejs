@@ -1,0 +1,19 @@
+<%- include('partials/header'); -%>
+
+    <div class="container my-4">
+        <%- include('partials/error'); -%>
+        <a href="/assignments" class="btn btn-dark"><i class="fas fa-hand-point-left"></i></a>
+        <div class="p-5 mb-4 rounded-3">
+            <div class="container-fluid">
+                <h1 class="display-5 fw-bold"><%= assignment.title %></h1>
+                <label for="">Create at <b><%= assignment.created.toUTCString() %></b></label>
+                <p class="col-md-8 fs-4 my-4"><%= assignment.description %></p>
+                <a href="/assignments/<%= assignment.id %>/edit" class="btn btn-dark">Edit <i class="fas fa-pen fa-xs"></i></a>
+                      <form class="d-inline" id="delete" action="/assignments/<%= assignment.id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger" type="submit">Delete <i class="fas fa-trash fa-xs"></i></button>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer'); -%>
