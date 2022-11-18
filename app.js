@@ -1,3 +1,4 @@
+// Requiring all the modules.
 var express      = require("express"),
 methodOverride   = require("method-override"),
 expressSanitizer = require("express-sanitizer")
@@ -6,8 +7,10 @@ mongoose         = require("mongoose"),
 flash            = require("connect-flash");
 app              = express();
 
+// Using the .env file
 require("dotenv").config({ path: "./.env" });
 
+// Connecting to the database
 mongoose.connect(process.env.Mongodb_URL, { useNewUrlParser: true , useUnifiedTopology: true , useFindAndModify: false });
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -33,10 +36,13 @@ app.use(function(req, res, next){
   next();
 })
 
+// Requiring the routes
 var indexRoutes = require("./routes/index.js");
 
+// Using the routes
 app.use("/", indexRoutes);
 
-app.listen(80, function(){
+// Listening the app to the port
+app.listen(process.env.PORT || 80, function(){
     console.log("The App has started");
 })

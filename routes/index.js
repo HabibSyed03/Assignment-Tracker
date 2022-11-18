@@ -1,12 +1,15 @@
 var express = require("express"),
     router = express.Router({ mergeParams: true });
 
+// Requiring the Assignment model
 var Assignment = require("../models/assignment")
 
+// Default Home page route
 router.get("/", function(req, res){
     res.render("index");
 });
 
+// All Assignments route
 router.get("/assignments", function(req, res){
     Assignment.find({}, function(err, assignments){
         if(err){
@@ -18,10 +21,12 @@ router.get("/assignments", function(req, res){
     });
 });
 
+// Get route for new Assignment
 router.get("/assignments/new", function(req, res){
     res.render("new");
 });
 
+// Post route for new Assignment
 router.post("/assignments", function(req, res){
     Assignment.create(req.body, function(err, newassignment){
         if(err){
@@ -34,6 +39,7 @@ router.post("/assignments", function(req, res){
     })
 });
 
+// Get route for specific Assignment
 router.get("/assignments/:id", function(req, res){
     Assignment.findById(req.params.id, function(err, findassignment){
         if(err){
@@ -45,6 +51,7 @@ router.get("/assignments/:id", function(req, res){
     });
 });
 
+// Get route for edit Assignment
 router.get("/assignments/:id/edit", function(req, res){
     Assignment.findById(req.params.id, function(err, findassignment){
         if(err){
@@ -56,6 +63,7 @@ router.get("/assignments/:id/edit", function(req, res){
     });
 });
 
+// Update route for an Assignment
 router.put("/assignments/:id", function(req, res){
     Assignment.findByIdAndUpdate(req.params.id, req.body, function(err, updateassignment){
         if(err){
@@ -68,6 +76,7 @@ router.put("/assignments/:id", function(req, res){
     });
 });
 
+// Delete route for an Assignment
 router.delete("/assignments/:id", function(req, res){
     Assignment.findByIdAndRemove(req.params.id, function(err, updateassignment){
         if(err){
@@ -80,4 +89,5 @@ router.delete("/assignments/:id", function(req, res){
     });
 });
 
+// Exporting the router object to be able to used in the app.js
 module.exports = router;
