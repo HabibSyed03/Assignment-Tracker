@@ -45,6 +45,39 @@ router.get("/assignments/:id", function(req, res){
     });
 });
 
+router.get("/assignments/:id/edit", function(req, res){
+    Assignment.findById(req.params.id, function(err, findassignment){
+        if(err){
+            console.log("Error");
+        }
+        else{
+            res.render("edit", {assignment: findassignment});
+        }
+    });
+});
 
+router.put("/assignments/:id", function(req, res){
+    Assignment.findByIdAndUpdate(req.params.id, req.body, function(err, updateassignment){
+        if(err){
+            res.redirect("/assignments");
+        }
+        else{
+            req.flash("success", "Successfully edited the Assignment!")
+            res.redirect("/assignments/" + req.params.id);
+        }
+    });
+});
+
+router.delete("/assignments/:id", function(req, res){
+    Assignment.findByIdAndRemove(req.params.id, function(err, updateassignment){
+        if(err){
+            res.redirect("/assignments");
+        }
+        else{
+            req.flash("success", "Successfully delete the Assignment!")
+            res.redirect("/assignments");
+        }
+    });
+});
 
 module.exports = router;
